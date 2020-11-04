@@ -1,0 +1,86 @@
+openapi: 3.0.1
+info:
+  title: product-service
+  description: Documentation for product-service API
+  version: '0.1'
+servers:
+  - url: 'https://e049xelvjh.execute-api.eu-west-1.amazonaws.com'
+paths:
+  /dev/products:
+    get:
+      description: Get array of all products
+      responses:
+        '200':
+          description: Successful response with the array of all products, each product corresponds to the product schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+              examples:
+                '0':
+                  value: >-
+                    [{"id":"18536229-9725-4217-b7f7-61119d75a21d","count":5,"description":"Persevering optimal matrix","price":3972,"title":"Andalax","image":"https://images.unsplash.com/photo-1586222515300-fa1992155ece?w=400"},{"id":"b56572a7-77d3-4de3-a0ec-bddcf412c84d","count":4,"description":"Switchable 24/7 workforce","price":3028,"title":"Latlux","image":"https://images.unsplash.com/photo-1571333250630-f0230c320b6d?w=400"},{"id":"c6892d8f-153c-48e1-b550-fb778065cbf1","count":4,"description":"Polarised methodical software","price":2909,"title":"Mat Lam Tam","image":"https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=400"},{"id":"ef754cdc-7c04-4960-a95d-c856e53ec090","count":2,"description":"Multi-layered composite emulation","price":3224,"title":"Sub-Ex","image":"https://images.unsplash.com/photo-1549216963-72c1712c1196?w=400"},{"id":"cdcabc88-31ee-43d7-9ad7-f8da8d951937","count":1,"description":"Devolved directional interface","price":737,"title":"Y-find","image":"https://images.unsplash.com/photo-1591646311346-995bbd417622?w=400"},{"id":"07ec0f2f-2e1a-438c-b7da-4d2d9e3436cd","count":4,"description":"Integrated mission-critical contingency","price":579,"title":"Solarbreeze","image":"https://images.unsplash.com/photo-1601652290498-0b5f418541a4?w=400"}]
+                '1':
+                  value: >-
+                    [{"id":"1119ab7d-8595-4921-9c25-52d356d79f75","count":2,"description":"Seamless context-sensitive core","price":2306,"title":"Flowdesk","image":"https://images.unsplash.com/photo-1597522781074-9a05ab90638e?w=400"},{"id":"d0865649-80ec-4868-abe0-ec427ae4a7e3","count":1,"description":"Optimized intangible database","price":3475,"title":"Konklux","image":"https://images.unsplash.com/photo-1588530503929-ec9047c086fb?w=400"},{"id":"351c8541-2a99-42e0-86b0-562d803a4c10","count":4,"description":"Monitored intermediate structure","price":2289,"title":"Stringtough","image":"https://images.unsplash.com/photo-1601651353134-d5b8906b515e?w=400"},{"id":"687496e3-6b39-48bf-9282-8f13f4ad5ceb","count":3,"description":"Switchable upward-trending attitude","price":519,"title":"Cardguard","image":"https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=400"}]
+      servers:
+        - url: 'https://e049xelvjh.execute-api.eu-west-1.amazonaws.com'
+    servers:
+      - url: 'https://e049xelvjh.execute-api.eu-west-1.amazonaws.com'
+  /dev/products/{productId}:
+    get:
+      description: Auto generated using Swagger Inspector
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: string
+          required: true
+          description: UUID of a product to get
+      responses:
+        '200':
+          description: Successful response with the requested product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+              examples:
+                '0':
+                  value: >-
+                    {"id":"18536229-9725-4217-b7f7-61119d75a21d","count":5,"description":"Persevering
+                    optimal
+                    matrix","price":3972,"title":"Andalax","image":"https://images.unsplash.com/photo-1586222515300-fa1992155ece?w=400"}
+        '404':
+          description: Product with such ID was not found
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                '0':
+                  value: >-
+                    'Product not found'
+      servers:
+        - url: 'https://e049xelvjh.execute-api.eu-west-1.amazonaws.com'
+    servers:
+      - url: 'https://e049xelvjh.execute-api.eu-west-1.amazonaws.com'
+components:
+  schemas:
+    product:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        count:
+          type: number
+        description:
+          type: string
+        price:
+          type: number
+        title:
+          type: string
+        image:
+          type: string
+          format: url
+      description: "product schema"
