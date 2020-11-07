@@ -1,7 +1,9 @@
 import getProductsList from './src/handlers/getProductsList'
-import getProductsById from './src/handlers/getProductsById'
+import getProductById from './src/handlers/getProductById'
+import postProduct from './src/handlers/postProduct'
 
 export {
   getProductsList,
-  getProductsById
+  getProductById,
+  postProduct
 }

@@ -27,6 +27,59 @@ paths:
         - url: 'https://e049xelvjh.execute-api.eu-west-1.amazonaws.com'
     servers:
       - url: 'https://e049xelvjh.execute-api.eu-west-1.amazonaws.com'
+    post:
+      summary: Add a new product
+      requestBody:
+        description: __example of required body__, image field is optional (should contain image url if passed)
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+                count:
+                  type: number
+                image:
+                  type: string
+                  format: url
+              required:
+                - title
+                - description
+                - price
+                - count
+            example:
+              title: new product 1
+              description: new description 1
+              price: 1000
+              count: 5
+      responses:
+        '200':
+          description: New product has been created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+              example:
+                id: 8f59681b-5de9-4e32-8735-22d8fcd6a1e6
+                title: new product 2
+                description: new description 2
+                price: 500
+                count: 4
+                image: https://images.unsplash.com/photo-1573376670774-4427757f7963?w=400
+        '400':
+          description: Bad request (missing some field or has incorrect field type)
+          content:
+            application/json:
+              schema:
+                type: string
+              example:
+                Bad request
   /dev/products/{productId}:
     get:
       description: Auto generated using Swagger Inspector

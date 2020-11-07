@@ -1,11 +1,8 @@
 service:
   name: product-service
-# app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
+
 frameworkVersion: '2'
 
-# Add the serverless-webpack plugin
 plugins:
   - serverless-webpack
 
@@ -15,6 +12,13 @@ provider:
   stage: dev
   region: eu-west-1
 
+  environment:
+    PG_HOST: nodejs-aws-db.cydsgwcxyugb.eu-west-1.rds.amazonaws.com
+    PG_PORT: 5432
+    PG_DATABASE: cycle_store
+    PG_USERNAME: postgres
+    PG_PASSWORD: # password required
+
 functions:
   getProductsList:
     handler: handler.getProductsList
@@ -23,8 +27,8 @@ functions:
           path: products
           method: get
           cors: true
-  getProductsById:
-    handler: handler.getProductsById
+  getProductById:
+    handler: handler.getProductById
     events:
       - http:
           path: products/{productId}
@@ -34,3 +38,10 @@ functions:
             parameters:
               paths:
                 productId: true
+  postProduct:
+    handler: handler.postProduct
+    events:
+      - http:
+          path: products
+          method: post
+          cors: true
