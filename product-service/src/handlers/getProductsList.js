@@ -1,19 +1,26 @@
-// import productsList from '../productsList.json'
-import axios from 'axios'
+import productModel from '../models/product'
 
-const getProductsList = async () => {
+const getProductsList = async event => {
+  console.log('Lambda function has been invoked with event:', event)
   try {
-    const { data: productsList } = await axios.get('https://cycle-store-products.s3-eu-west-1.amazonaws.com/productsList.json')
+    const products = await productModel.getAll()
     return {
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
       statusCode: 200,
-      body: JSON.stringify(productsList)
+      body: JSON.stringify(products)
     }
   } catch (error) {
-    console.log(error)
-  }
+    console.log('Error during DB query execution', error)
+    return {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      statusCode: 500,
+      body: 'Internal server error'
+    }
+  } 
 };
 
 export default getProductsList
