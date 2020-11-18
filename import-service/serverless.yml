@@ -1,0 +1,47 @@
+service:
+  name: import-service
+
+frameworkVersion: '2'
+
+plugins:
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-west-1
+
+  environment:
+    S3_BUCKET: ${env:S3_BUCKET}
+
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action: 's3:ListBucket'
+      Resource: 
+        - 'arn:aws:s3:::${env:S3_BUCKET}'
+    - Effect: 'Allow'
+      Action: 's3:*'
+      Resource: 'arn:aws:s3:::${env:S3_BUCKET}/*'
+
+functions:
+  importProductsFile:
+    handler: handler.importProductsFile
+    events:
+      - http: 
+          path: import
+          method: GET
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                name: true
+  importFileParser:
+    handler: handler.importFileParser
+    events:
+      - s3:
+          bucket: ${env:S3_BUCKET}
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+          existing: true
