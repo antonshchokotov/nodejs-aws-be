@@ -45,3 +45,27 @@ functions:
           rules:
             - prefix: uploaded/
           existing: true
+
+# This service requires S3 Bucket to be created manually
+# Bucket name should match S3_BUCKET in .env file
+# However Bucket can be created automatically using following code
+#
+# resources:
+#   Resources:
+#     S3Bucket:
+#       Type: 'AWS::S3::Bucket'
+#       Properties:
+#         BucketName: ${env:S3_BUCKET}
+#         PublicAccessBlockConfiguration:
+#           BlockPublicAcls: true
+#           IgnorePublicAcls: true
+#           BlockPublicPolicy: true
+#           RestrictPublicBuckets: true
+#         CorsConfiguration:
+#           CorsRules:
+#             - AllowedHeaders:
+#                 - '*'
+#               AllowedMethods:
+#                 - PUT
+#               AllowedOrigins:
+#                 - '*'
