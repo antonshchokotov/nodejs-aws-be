@@ -41,7 +41,7 @@ const catalogBatchProcess = async (event, context) => {
         await productModel.addProduct(product)
         console.log('Product created: ', product)
         resolve()
-      } catch {
+      } catch (error) {
         console.log('Failed to create product: ', product)
         console.log('Error during DB query execution: ', error)
         reject()
